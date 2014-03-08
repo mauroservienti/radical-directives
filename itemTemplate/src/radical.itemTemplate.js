@@ -1,6 +1,7 @@
 ﻿/*
  * itemTemplate Directive v 1.0.0.0
  *  Dependencies:
+ *    --
  */
 (function () {
 
@@ -9,14 +10,20 @@
     module.factory('itemTemplateConfig', ['$log', '$http', '$templateCache', function ($log, $http, $templateCache) {
         return {
             defaultSettings: {
-                templatesFolder: '/radical/directives/itemTemplate/templates/',
+                templatesFolder: 'radical/directives/itemTemplate/templates/',
                 dataTypeProperty: 'dataType',
                 defaultLoadingTemplate: '<span class="item-template-loading">Loading...</span>',
                 defaultLoadingErrorTemplate: '<span>Cannot find any valid template for: {{templateModel}}</span>'
             },
             defaultTemplatesSelector: function (model, settings) {
+      
+                var dataTypePropertyValue = 'undefined';
+                if(model){
+                  dataTypePropertyValue = model[settings.dataTypeProperty];
+                } else if(settings.undefinedTemplateName){
+                  dataTypePropertyValue = settings.undefinedTemplateName
+                }
 
-                var dataTypePropertyValue = model[settings.dataTypeProperty];
                 var templateFileName = dataTypePropertyValue;
                 $log.debug('itemTemplate directive templateSelector dataTypePropertyValue:', dataTypePropertyValue);
 
@@ -30,6 +37,16 @@
                         $log.debug('itemTemplate directive settings defines an undefined-template property.');
                         templateFileName = settings.templatesMap['undefined-template'];
                     }
+                }
+                
+                if(settings.templateNamePrefix){
+                  $log.debug('itemTemplate directive settings have a templateNamePrefix:', settings.templateNamePrefix);
+                  templateFileName = templateNamePrefix + templateFileName;
+                }
+                
+                if(settings.templateNameSuffix){
+                  $log.debug('itemTemplate directive settings have a templateNameSuffix:', settings.templateNameSuffix);
+                  templateFileName = templateFileName + settings.templateNameSuffix;
                 }
 
                 var templateUrl = settings.templatesFolder + templateFileName + '.html';
@@ -139,7 +156,7 @@
                             $scope.$watch(newValue, function (model) {
                                 $log.debug('itemTemplate directive itemModel changed [model]:', model);
 
-                                if (model === null || model === undefined) {
+                                if ( ( model === null || model === undefined) && !settings.handleUndefinedModel ) {
                                     $log.debug('itemTemplate directive model is null, template, if any, will be destroyed.');
                                     $linkElement.empty();
                                 } else {
@@ -162,22 +179,20 @@
                                             temp.appendTo($linkElement);
                                         }
 
-                                        $scope.$apply(function () {
-                                            var firstChild = $linkElement.children(0);
-                                            var compiledElement = $compile($linkElement.html())($scope);
+                                        var firstChild = $linkElement.children(0);
+                                        var compiledElement = $compile($linkElement.html())($scope);
 
-                                            firstChild.replaceWith(compiledElement);
-                                        });
+                                        firstChild.replaceWith(compiledElement);
                                     };
 
                                     composer(config.defaultSettings.defaultLoadingTemplate);
 
                                     loader(templateUrl)
-                                        .success(function (data, status, headers, config) {
+                                        .success(function (data, status, headers, cfg) {
                                             composer(data);
                                         })
-                                        .error(function (data, status, headers, config) {
-                                            $log.error('template loafding error: ', data, status, headers);
+                                        .error(function (data, status, headers, cfg) {
+                                            $log.error('template loading error: ', data, status, headers);
                                             composer(config.defaultSettings.defaultLoadingErrorTemplate);
                                         });
                                 }
