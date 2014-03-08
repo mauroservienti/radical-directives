@@ -1,0 +1,44 @@
+﻿<data-ng-form name="nestedForm" novalidate>
+    <div class="row">
+        <div class="form-group" ng-class="{ 'has-error': nestedForm.vatId.$dirty && nestedForm.vatId.$invalid, 'has-success': nestedForm.vatId.$dirty && nestedForm.vatId.$valid }">
+            <label class="control-label" for="vatId">Vat ID</label>
+
+            <input type="text" name="vatId" data-ng-model="vatId" class="form-control" placeholder="Enter vat id..." required />
+
+            <span class="control-label" data-ng-show="nestedForm.vatId.$dirty && nestedForm.vatId.$error.required">required</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group" ng-class="{ 'has-error': nestedForm.discalCode.$dirty && nestedForm.fiscalCode.$invalid, 'has-success': nestedForm.fiscalCode.$dirty && nestedForm.fiscalCode.$valid }">
+            <label class="control-label" for="fiscalCode">Fiscal Code</label>
+
+            <input type="text" name="fiscalCode" data-ng-model="fiscalCode" class="form-control" placeholder="Enter fiscal code..." required />
+
+            <span class="control-label" data-ng-show="nestedForm.fiscalCode.$dirty && nestedForm.fiscalCode.$error.required">required</span>
+        </div>
+    </div>
+</data-ng-form>
+
+
+<!--<data-ng-form name="nestedForm" id="nestedForm">
+    <div class="row">
+        <div class="form-group">
+            <label for="vatId">Vat ID</label>
+
+            <input type="text" name="vatId" data-ng-model="vatId" class="form-control" placeholder="Enter vat id..." required />
+
+            <span class="text-danger" data-ng-show="financeInformation.vatId.$dirty && financeInformation.vatId.$error.required">required</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <label for="fiscalCode">Fiscal Code</label>
+
+            <input type="text" name="fiscalCode" data-ng-model="fiscalCode" class="form-control" placeholder="Enter fiscal code..." required />
+
+            <span class="text-danger" data-ng-show="financeInformation.fiscalCode.$dirty && financeInformation.fiscalCode.$error.required">required</span>
+        </div>
+    </div>
+</data-ng-form>-->

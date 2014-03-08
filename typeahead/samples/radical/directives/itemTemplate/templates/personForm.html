@@ -1,0 +1,11 @@
+﻿<data-ng-form name="nestedForm" novalidate>
+    <div class="row">
+        <div class="form-group" ng-class="{ 'has-error': nestedForm.fiscalCode.$dirty && nestedForm.fiscalCode.$invalid, 'has-success': nestedForm.fiscalCode.$dirty && nestedForm.fiscalCode.$valid }">
+            <label class="control-label" for="fiscalCode">Fiscal Code</label>
+
+            <input type="text" name="fiscalCode" data-ng-model="fiscalCode" class="form-control" placeholder="Enter fiscal code..." required />
+
+            <span class="control-label" data-ng-show="nestedForm.fiscalCode.$dirty && nestedForm.fiscalCode.$error.required">required</span>
+        </div>
+    </div>
+</data-ng-form>
