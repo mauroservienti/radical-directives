@@ -1,20 +1,75 @@
 (function(){
-  angular.module('sample', ['radical.itemTemplate'])
-    .controller('sampleController', ['$scope', function($scope){
+  var app = angular.module('sample', ['ui.router','radical.breadcrumbs']);
+  
+  app.controller('homeController', [function(){
+  }])
+  .controller('productsController', [function(){
+  }])
+  .controller('productController', [function(){
+  }])
+  .controller('aboutController', [function(){
+  }]);
+  
+  app.config(['$locationProvider','$stateProvider', function($locationProvider, $stateProvider){
     
-      $scope.selection = null;
+    $locationProvider.html5Mode(false).hashPrefix('!');
     
-      $scope.models = [{
-        dataType: 'companies',
-        companyName: 'Managed Designs S.r.l.'
-      },{
-        dataType: 'people',
-        firstName: 'Mauro',
-        lastName: 'Servienti'
-      },];
-      
-      $scope.select = function(model){
-        $scope.selection = model;
-      };
-    }]);
+    $stateProvider.state('home', {
+                url: '/',
+                views: {
+                    '': {
+                        templateUrl: 'homeView.html',
+                        controller: 'homeController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'Home'
+                    }
+                }
+            })
+            .state('home.products', {
+                url: '/products',
+                views: {
+                    '': {
+                        templateUrl: 'productsView.html',
+                        controller: 'productsController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'Products'
+                    }
+                }
+            })
+            .state('home.products.productById', {
+                url: '/{id}',
+                views: {
+                    '': {
+                        templateUrl: 'productView.html',
+                        controller: 'productController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'Product'
+                    }
+                }
+            })
+            .state('about', {
+                url: '/about',
+                views: {
+                    '': {
+                        templateUrl: 'aboutView.html',
+                        controller: 'aboutController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'About'
+                    }
+                }
+            });
+    
+  }]);
 })()

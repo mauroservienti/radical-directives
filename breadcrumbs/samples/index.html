@@ -1,29 +1,41 @@
 <html data-ng-app="sample">
 <head>
-	<title>Item Template Sample</title>
+	<title>Breadcrumbs sample</title>
 	<script>
         document.write('<base href="' + document.location + '" />');
     </script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../src/radical.breadcrumbs.min.css">
 </head>
 <body>
-<div data-ng-controller="sampleController">
-<ul>
-  <li data-ng-repeat="model in models">
-    <button data-ng-click="select(model)">Select</button><item-Template item-model="model" />
-  </li>
-</ul>
 
-<div>
-  <item-Template item-model="selection" item-template-settings="{ templateNameSuffix: '-editor', handleUndefinedModel: true, undefinedTemplateName: 'empty-selection' }" />
-</div>
+<script type="text/ng-template" id="homeView.html">
+    
+</script>
 
-</div>
+<script type="text/ng-template" id="productsView.html">
+    
+</script>
+
+<script type="text/ng-template" id="productView.html">
+    
+</script>
+
+<script type="text/ng-template" id="aboutView.html">
+    
+</script>
+
+  <div>
+    <breadcrumbs />
+  </div>
+  <div data-ui-view>
+  </div>
 	<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 	<script type="text/javascript" src="scripts/angular.min.js"></script>
-	<script type="text/javascript" src="../src/radical.itemTemplate.js"></script>
+	<script type="text/javascript" src="scripts/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../src/radical.breadcrumbs.js"></script>
 	<script type="text/javascript" src="app/application.js"></script>
 </body>
 </html>
