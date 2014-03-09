@@ -1,0 +1,65 @@
+<html data-ng-app="sample">
+<head>
+	<title>typeahead Sample</title>
+	<script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../src/radical.typeahead.min.css">
+</head>
+<body>
+<div style="margin: 25px;" data-ng-controller="sampleController">
+
+  <div>
+      <typeahead items="searchResults"
+                 term="searchTerm"
+                 search="search(term)"
+                 item-selected="select(item)"
+                 show-search-button="true"
+                 placeholder="'Search...'">
+          <div class="results" ng-cloak>
+              <div class="results-group">
+                  <ul>
+                      <li ng-repeat="s in searchResults"
+                          typeahead-item="s" class="results-item">
+                          <a href="javascript:void(0);" class="name">{{s.firstName}} {{s.lastName}}</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </typeahead>
+  </div>
+  <div>{{selected}}</div>
+  
+  <div>
+      <typeahead tags="taxonomiesSelection" 
+                 items="taxonomiesSearchResults"
+                 term="taxonomiesSearchTerm"
+                 search="searchTaxonomies(term)"
+                 item-selected="selectTaxonomy(item)"
+                 show-search-button="true"
+                 placeholder="'Add a taxonomy...'">
+          <div class="results" ng-cloak>
+              <div class="results-group">
+                  <ul>
+                      <li ng-repeat="taxonomy in taxonomiesSearchResults track by taxonomy.id" 
+                          typeahead-item="taxonomy" 
+                          class="results-item button">
+                          <span class="name">{{taxonomy.name}}</span>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </typeahead>
+  </div>
+
+</div>
+	<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/lodash.js"></script>
+	<script type="text/javascript" src="scripts/angular.min.js"></script>
+	<script type="text/javascript" src="../src/radical.typeahead.js"></script>
+	<script type="text/javascript" src="app/application.js"></script>
+</body>
+</html>

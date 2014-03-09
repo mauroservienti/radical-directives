@@ -5,7 +5,7 @@
 
     var module = angular.module('radical.typeahead', []);
 
-    module.factory('typeaheadConfig', ['$timeout' function($timeout){ 
+    module.factory('typeaheadConfig', ['$timeout', function($timeout){ 
         return {
             templateUrl: '/radical/directives/typeahead/template.html',
             debouncerDelay: 350,
@@ -109,11 +109,6 @@
                     $scope.itemSelected({ item: null });
                 };
 
-                //this.onSearchCompleted = function () {
-                //    $scope.isBusy = false;
-                //    $scope.hide = false;
-                //};
-
                 $scope.isVisible = function () {
                     return !$scope.hide && ($scope.focused || $scope.mousedOver) && $scope.items.length > 0;
                 };
@@ -124,15 +119,11 @@
                     debouncer = null;
 
                     var onSearchCompleted = function () {
-                        //$rootScope.safeApply($scope, function () {
-                            $scope.isBusy = false;
-                            $scope.hide = false;
-                        //});
+                      $scope.isBusy = false;
+                      $scope.hide = false;
                     };
 
-                    //$rootScope.safeApply($scope, function () {
-                        $scope.isBusy = true;
-                    //});
+                    $scope.isBusy = true;
 
                     $log.debug('debounce completed -> executing search: [term]', $scope.term);
                     var promise = $scope.search({ term: $scope.term });
@@ -151,9 +142,7 @@
                 var explicitSearchHandler = function () {
 
                     var onExplicitSearchCompleted = function () {
-                        //$rootScope.safeApply($scope, function () {
-                            $scope.focused = true;
-                        //});
+                      $scope.focused = true;
                     };
 
                     var promise = searchHandler();
@@ -196,13 +185,6 @@
                     $log.debug('typehead -> explicitSearchHandler(): ', $scope.term);
 
                     explicitSearchHandler();
-
-                    //if (!debouncer) {
-
-                    //    debouncer = $.debounce(config.debouncerDelay, false, explicitSearchHandler);
-                    //    debouncer();
-                    //    $log.debug('typehead -> explicitSearchHandler() -> debouncer started.');
-                    //}
                 };
             }],
             compile: function compiler($linkAttributes) {
@@ -308,7 +290,6 @@
 
                         scope.$watch('items', function (items) {
                             controller.activate(items.length ? items[0] : null);
-                            //controller.onSearchCompleted();
                         });
 
                         scope.$watch('focused', function (focused) {
@@ -349,21 +330,14 @@
     /*
      * typeahead-item Directive
      */
-
     var typeaheadItemDirective = function ($log) {
-
-        //$log.debug('typeahead-item directive injecting function:');
 
         return {
             require: '^typeahead',
             compile: function compiler($linkAttributes) {
 
-                //$log.debug('typeahead-item directive compile function.');
-
                 var link = {
                     post: function (scope, element, attrs, controller) {
-
-                        //$log.debug('typeahead-item directive post link function.', scope);
 
                         var item = scope.$eval(attrs.typeaheadItem);
 
@@ -394,4 +368,4 @@
 
     module.directive('typeaheadItem', ['$log', typeaheadItemDirective]);
 
-}());
+})()
