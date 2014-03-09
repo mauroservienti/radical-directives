@@ -1,61 +1,64 @@
 ﻿(function () {
 
-    angular.module('frontend.directives')
-        .directive('breadcrumbs', ['frontendBaseUrl', '$log', '$parse', '$interpolate', function (frontendBaseUrl, $log, $parse) {
-            return {
-                restrict: 'EA',
-                replace: false,
-                scope: {
-                    itemDisplayNameResolver: '&'
-                },
-                templateUrl: frontendBaseUrl + 'directives/breadcrumbsDirective.html',
-                controller: ['$scope', '$state', '$stateParams', function ($scope, $state, $stateParams) {
+	var module = angular.module('radical.breadcrumbs', ['ui.router']);
 
-                    var defaultResolver = function (state) {
+	module.factory('breadcrumbsConfig', [function(){ 
+        return {
+            templateUrl: '/radical/directives/breadcrumbs/template.html',
+            defaultItemNameResolver: function(state) {
+            	var displayName = state.data.settings.displayName || state.name;
+                return displayName;
+            }
+        };
+    }]);
 
-                        var displayName = state.data.settings.displayName || state.name;
+	module.directive('breadcrumbs', ['$log', 'breadcrumbsConfig','$parse', function ($log, config, $parse) {
+        return {
+            restrict: 'EA',
+            replace: false,
+            scope: {
+                displayNameResolver: '&'
+            },
+            templateUrl: '/radical/directives/breadcrumbs/template.html',
+            controller: ['$scope', '$state', '$stateParams', function ($scope, $state, $stateParams) {
 
-                        return displayName;
-                    };
+                var isCurrent = function(state){
+                    return $state.$current.name === state.name;
+                };
 
-                    var isCurrent = function(state){
-                        return $state.$current.name === state.name;
-                    };
+                var setNavigationState = function () {
+                    $scope.$navigationState = {
+                        currentState: $state.$current,
+                        params: $stateParams,
+                        getDisplayName: function (state) {
 
-                    var setNavigationState = function () {
-                        $scope.$navigationState = {
-                            currentState: $state.$current,
-                            params: $stateParams,
-                            getDisplayName: function (state) {
-
-                                if ($scope.hasCustomResolver) {
-                                    return $scope.itemDisplayNameResolver({
-                                        defaultResolver: defaultResolver,
-                                        state: state,
-                                        isCurrent: isCurrent(state)
-                                    });
-                                }
-                                else {
-                                    return defaultResolver(state);
-                                }
-                            },
-                            isCurrent: function (state) {
-
-                                return isCurrent(state);
+                            if ($scope.hasCustomResolver) {
+                                return $scope.displayNameResolver({
+                                    defaultResolver: config.defaultItemNameResolver,
+                                    state: state,
+                                    isCurrent: isCurrent(state)
+                                });
                             }
+                            else {
+                                return config.defaultItemNameResolver(state);
+                            }
+                        },
+                        isCurrent: function (state) {
+                            return isCurrent(state);
                         }
-                    };
+                    }
+                };
 
-                    $scope.$on('$stateChangeSuccess', function () {
-                        setNavigationState();
-                    });
-
+                $scope.$on('$stateChangeSuccess', function () {
                     setNavigationState();
-                }],
-                link: function (scope, element, attrs, controller) {
-                    scope.hasCustomResolver = angular.isDefined(attrs['itemDisplayNameResolver']);
-                }
-            };
-        }]);
+                });
+
+                setNavigationState();
+            }],
+            link: function (scope, element, attrs, controller) {
+                scope.hasCustomResolver = angular.isDefined(attrs['displayNameResolver']);
+            }
+        };
+    }]);
 
 })();
