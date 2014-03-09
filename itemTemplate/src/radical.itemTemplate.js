@@ -10,7 +10,7 @@
     module.factory('itemTemplateConfig', ['$log', '$http', '$templateCache', function ($log, $http, $templateCache) {
         return {
             defaultSettings: {
-                templatesFolder: 'radical/directives/itemTemplate/templates/',
+                templatesFolder: '/radical/directives/itemTemplate/templates/',
                 dataTypeProperty: 'dataType',
                 defaultLoadingTemplate: '<span class="item-template-loading">Loading...</span>',
                 defaultLoadingErrorTemplate: '<span>Cannot find any valid template for: {{templateModel}}</span>'
