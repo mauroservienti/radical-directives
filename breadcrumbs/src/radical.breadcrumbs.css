@@ -1,0 +1,10 @@
+ul.breadcrumbs {
+  padding: 0;
+  list-style: none;
+}
+ul.breadcrumbs li {
+  list-style: none outside none;
+  display: inline;
+  margin-right: 0px;
+  margin-left: 0px;
+}
