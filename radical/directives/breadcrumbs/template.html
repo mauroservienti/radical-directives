@@ -1,12 +1,9 @@
-﻿<ul class="breadcrumbs">
-    <li ng-repeat="state in $navigationState.currentState.path">
+﻿<ol class="breadcrumb">
+    <li ng-repeat="state in $navigationState.currentState.path" ng-class="{ active: $navigationState.isCurrent(state) }">
         <!-- ui-sref="{{ state.name }}" -->
-        <span ng-if="!$navigationState.isCurrent(state)">
-            <a href="#{{ state.url.format(params) }}">{{$navigationState.getDisplayName(state)}}</a>
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </span>
+        <a ng-if="!$navigationState.isCurrent(state)" href="{{$navigationState.formatUrl(state)}}">{{$navigationState.getDisplayName(state)}}</a>
         <span ng-if="$navigationState.isCurrent(state)">
             {{$navigationState.getDisplayName(state)}}
         </span>
     </li>
-</ul>
+</ol>
