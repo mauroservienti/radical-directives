@@ -5,17 +5,46 @@
   }])
   .controller('productsController', [function(){
   }])
-  .controller('productController', [function(){
+  .controller('productController', ['$scope', function($scope){
+  	
   }])
   .controller('aboutController', [function(){
   }]);
   
-  app.config(['$locationProvider','$stateProvider', function($locationProvider, $stateProvider){
+  app.config(['$locationProvider','$stateProvider', 'breadcrumbsConfigProvider', function($locationProvider, $stateProvider, breadcrumbsConfig){
     
     $locationProvider.html5Mode(false).hashPrefix('!');
     
     $stateProvider.state('home', {
+                url: '/home',
+                views: {
+                    '': {
+                        templateUrl: 'homeView.html',
+                        controller: 'homeController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'Home'
+                    }
+                }
+            })
+    		.state('_home', {
                 url: '/',
+                views: {
+                    '': {
+                        templateUrl: 'homeView.html',
+                        controller: 'homeController'
+                    }
+                },
+                data: {
+                    settings: {
+                        displayName: 'Home'
+                    }
+                }
+            })
+    		.state('__home', {
+                url: '',
                 views: {
                     '': {
                         templateUrl: 'homeView.html',
@@ -72,4 +101,17 @@
             });
     
   }]);
+
+  app.run(['$log','$rootScope', function($log, $rootScope){
+    $rootScope.customResolver = function(defaultResolver, state, stateParams, isCurrent){
+
+    	//$log.debug('customResolver', stateParams, state);
+
+			if(state.name==='home.products.productById'){
+				return state.data.settings.displayName + ' ' + stateParams.id;
+			}
+
+			return defaultResolver(state, stateParams, isCurrent);
+		};
+	}]);
 })()

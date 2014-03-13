@@ -6,7 +6,7 @@
     </script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../src/radical.breadcrumbs.min.css">
+    <!-- <link rel="stylesheet" href="../src/radical.breadcrumbs.min.css"> -->
 </head>
 <body>
 
@@ -26,9 +26,34 @@
     
 </script>
 
-  <div>
-    <breadcrumbs />
-  </div>
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#!/">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#!/">Home</a></li>
+        <li><a href="#!/home/products">Products</a></li>
+        <li><a href="#!/home/products/12">Product / 12</a></li>
+        <li><a href="#!/about">About</a></li>
+      </ul>
+      
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <breadcrumbs display-name-resolver="customResolver(defaultResolver, state, stateParams, isCurrent)" />
   <div data-ui-view>
   </div>
 	<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
