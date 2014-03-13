@@ -2,19 +2,27 @@
 
 	var module = angular.module('radical.breadcrumbs', ['ui.router']);
 
-    module.provider('breadcrumbsConfig', function breadcrumbsConfigProvider() {
+    module.provider('breadcrumbsConfig', ['$locationProvider',function breadcrumbsConfigProvider($locationProvider) {
         this.templateUrl = '/radical/directives/breadcrumbs/template.html',
         this.defaultItemNameResolver = function(state, stateParams, isCurrent) {
             var displayName = state.data.settings.displayName || state.name;
             return displayName;
         };
-        hashPrefix = '';
-        html5Mode = true;
+        this.defaultUrlFomatter = function(state, stateParams){
+
+            var url = state.url.format(stateParams);
+
+            if(!$locationProvider.html5Mode()){
+                url = '#' + $locationProvider.hashPrefix() + url;
+            }
+
+            return url;
+        }
      
       this.$get = function breadcrumbsConfigFactory() {
          return this;
       };
-    });
+    }]);
 
 	// module.factory('breadcrumbsConfig', [function(){ 
  //        return {
@@ -65,15 +73,7 @@
                         },
                         formatUrl: function(state){
 
-                            var url = state.url.format($stateParams);
-
-                            if(config.hashPrefix){
-                                url = config.hashPrefix + url;
-                            }
-
-                            if(!config.html5Mode){
-                                url = '#'+ url;
-                            }
+                            var url = config.defaultUrlFomatter(state, $stateParams);
 
                             return url;
                         }

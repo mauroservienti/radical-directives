@@ -13,9 +13,6 @@
   
   app.config(['$locationProvider','$stateProvider', 'breadcrumbsConfigProvider', function($locationProvider, $stateProvider, breadcrumbsConfig){
     
-    breadcrumbsConfig.html5Mode = false;
-    breadcrumbsConfig.hashPrefix = '!';
-
     $locationProvider.html5Mode(false).hashPrefix('!');
     
     $stateProvider.state('home', {
