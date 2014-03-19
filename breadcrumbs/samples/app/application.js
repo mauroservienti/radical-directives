@@ -102,7 +102,10 @@
     
   }]);
 
-  app.run(['$log','$rootScope', function($log, $rootScope){
+  app.run(['$log','$rootScope', '$state', function($log, $rootScope, $state){
+
+    $rootScope.$state = $state;
+
     $rootScope.customResolver = function(defaultResolver, state, stateParams, isCurrent){
 
     	//$log.debug('customResolver', stateParams, state);

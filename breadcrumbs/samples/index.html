@@ -42,10 +42,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#!/">Home</a></li>
-        <li><a href="#!/home/products">Products</a></li>
-        <li><a href="#!/home/products/12">Product / 12</a></li>
-        <li><a href="#!/about">About</a></li>
+        <li ng-class="{ active: $state.is('home') || $state.is('_home') || $state.is('__home') }"><a ui-sref="_home">Home</a></li>
+        <li ui-sref-active="active"><a ui-sref="home.products">Products</a></li>
+        <li ui-sref-active="active"><a ui-sref="home.products.productById({ id: 12 })">Product / 12</a></li>
+        <li ui-sref-active="active"><a ui-sref="about">About</a></li>
       </ul>
       
       
