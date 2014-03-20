@@ -11,12 +11,17 @@
 <div data-ng-controller="sampleController">
 <ul>
   <li data-ng-repeat="model in models">
-    <button data-ng-click="select(model)">Select</button><item-Template item-model="model" />
+    <button data-ng-click="select(model)">Select</button>
+    <item-template template-model="model" />
   </li>
 </ul>
 
 <div>
-  <item-Template item-model="selection" item-template-settings="{ templateNameSuffix: '-editor', handleUndefinedModel: true, undefinedTemplateName: 'empty-selection' }" />
+  <item-template template-model="selection" 
+                 item-template-settings="{ 
+                    templateNameSuffix: '-editor', 
+                    handleUndefinedModel: true, 
+                    undefinedTemplateName: 'empty-selection' }" />
 </div>
 
 </div>

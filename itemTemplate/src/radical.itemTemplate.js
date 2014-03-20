@@ -149,15 +149,15 @@
                         var selector = templatesSelectorProvider($linkAttributes);
                         var loader = templatesLoaderProvider($linkAttributes);
 
-                        $linkAttributes.$observe('itemModel', function (newValue) {
+                        $linkAttributes.$observe('templateModel', function (newValue) {
 
-                            $log.debug('itemTemplate directive itemModel attribute changed [newValue]:', newValue);
+                            $log.debug('itemTemplate directive templateModel attribute changed [newValue]:', newValue);
 
                             $scope.$watch(newValue, function (model) {
-                                $log.debug('itemTemplate directive itemModel changed [model]:', model);
+                                $log.debug('itemTemplate directive templateModel changed [model]:', model);
 
                                 if ( ( model === null || model === undefined) && !settings.handleUndefinedModel ) {
-                                    $log.debug('itemTemplate directive model is null, template, if any, will be destroyed.');
+                                    $log.debug('itemTemplate directive templateModel is null, template, if any, will be destroyed.');
                                     $linkElement.empty();
                                 } else {
 
