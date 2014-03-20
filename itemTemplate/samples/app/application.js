@@ -16,5 +16,14 @@
       $scope.select = function(model){
         $scope.selection = model;
       };
+
+      $scope.otherModels = [{
+        dataType: 'companies',
+        companyName: 'Mastreeno, Ltd.'
+      },{
+        dataType: 'people',
+        firstName: 'Lucia',
+        lastName: 'Bossi'
+      },];
     }]);
 })()

@@ -12,6 +12,9 @@
 <div style="margin: 25px;" data-ng-controller="sampleController">
 
   <div>
+  <h3>Basic Typeahead</h3>
+  <span>(Values: 'Mauro Servienti', 'Andrea Balducci', 'Alessandro Giorgetti', 'Gian Maria Ricci')</span>
+  <hr />
       <typeahead items="searchResults"
                  term="searchTerm"
                  search="search(term)"
@@ -32,6 +35,11 @@
   </div>
   <div>{{selected}}</div>
   
+  <hr />
+  <h3>Typeahead w/ support for tag(s)</h3>
+  <span>(values: 'FooBar', 'Software', 'AngularJS', 'AngularJS Day', 'Single Page Application', 'Managed Designs', 'Mauro Servienti')</span>
+  <hr />
+
   <div>
       <typeahead tags="taxonomiesSelection" 
                  items="taxonomiesSearchResults"

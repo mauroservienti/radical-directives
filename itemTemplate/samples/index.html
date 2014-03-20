@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="styles/bootstrap-theme.min.css">
 </head>
 <body>
-<div data-ng-controller="sampleController">
+
+
+<div style="margin: 25px;" data-ng-controller="sampleController">
+
+<h3>Item Templates</h3>
+
 <ul>
   <li data-ng-repeat="model in models">
     <button data-ng-click="select(model)">Select</button>
@@ -23,6 +28,14 @@
                     handleUndefinedModel: true, 
                     undefinedTemplateName: 'empty-selection' }" />
 </div>
+
+<hr />
+
+<ul>
+  <li data-ng-repeat="model in otherModels">
+    <item-template template-model="model" />
+  </li>
+</ul>
 
 </div>
 	<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>

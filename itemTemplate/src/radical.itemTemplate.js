@@ -138,6 +138,7 @@
             restrict: 'EA',
             transclude: false,
             replace: false,
+            scope: true,
             compile: function compiler($linkAttributes) {
 
                 var link = {

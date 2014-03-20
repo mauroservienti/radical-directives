@@ -51,30 +51,7 @@
         $scope.searchTerm = '';
       };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      //----------------------
 
       var taxonomies = [
         {id:0, name:'FooBar'}, 
