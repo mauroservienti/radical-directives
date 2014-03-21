@@ -1,6 +1,6 @@
 (function(){
   angular.module('sample', ['radical.itemTemplate'])
-    .controller('sampleController', ['$scope', function($scope){
+    .controller('sampleController', ['$scope','$log', function($scope, $log){
     
       $scope.selection = null;
     
@@ -14,6 +14,7 @@
       },];
       
       $scope.select = function(model){
+        $log.debug('select:', model);
         $scope.selection = model;
       };
 

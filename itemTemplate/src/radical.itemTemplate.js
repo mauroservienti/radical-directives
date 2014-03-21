@@ -139,7 +139,8 @@
             transclude: false,
             replace: false,
             scope: {
-                templateModel: '='
+                templateModel: '=',
+                templateContext: '='
             },
             compile: function compiler($linkAttributes) {
 
