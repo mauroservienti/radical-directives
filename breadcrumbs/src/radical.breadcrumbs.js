@@ -24,18 +24,6 @@
       };
     }]);
 
-	// module.factory('breadcrumbsConfig', [function(){ 
- //        return {
- //            templateUrl: '/radical/directives/breadcrumbs/template.html',
- //            defaultItemNameResolver: function(state) {
- //            	var displayName = state.data.settings.displayName || state.name;
- //                return displayName;
- //            },
- //            hashPrefix:'',
- //            html5Mode: true
- //        };
- //    }]);
-
 	module.directive('breadcrumbs', ['$log', 'breadcrumbsConfig','$parse', function ($log, config, $parse) {
         return {
             restrict: 'EA',
