@@ -16,13 +16,13 @@
 
 <ul>
   <li data-ng-repeat="model in models">
-    <button data-ng-click="select(model)">Select</button>
+    <button data-ng-click="$parent.select(model)">Select</button>
     <item-template template-model="model" />
   </li>
 </ul>
 
 <div>
-  <item-template template-model="selection" 
+  <item-template ng-model="selection" 
                  item-template-settings="{ 
                     templateNameSuffix: '-editor', 
                     handleUndefinedModel: true, 

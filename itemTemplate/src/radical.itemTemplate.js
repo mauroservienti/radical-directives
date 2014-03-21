@@ -138,31 +138,27 @@
             restrict: 'EA',
             transclude: false,
             replace: false,
-            scope: true,
+            scope: {
+                templateModel: '='
+            },
             compile: function compiler($linkAttributes) {
 
                 var link = {
-                    post: function ($scope, $linkElement, $linkAttributes) {
+                    post: function (scope, $linkElement, $linkAttributes) {
                         $log.debug('itemTemplate directive post linker function.');
-                        $log.debug('[$scope, $linkElement, $linkAttributes]', $scope, $linkElement, $linkAttributes);
+                        $log.debug('[scope, $linkElement, $linkAttributes]', scope, $linkElement, $linkAttributes);
 
                         var settings = settingsProvider($linkAttributes);
                         var selector = templatesSelectorProvider($linkAttributes);
                         var loader = templatesLoaderProvider($linkAttributes);
 
-                        $linkAttributes.$observe('templateModel', function (newValue) {
-
-                            $log.debug('itemTemplate directive templateModel attribute changed [newValue]:', newValue);
-
-                            $scope.$watch(newValue, function (model) {
-                                $log.debug('itemTemplate directive templateModel changed [model]:', model);
+                        scope.$watch('templateModel', function (model) {
+                        $log.debug('itemTemplate directive templateModel changed [model]:', model);
 
                                 if ( ( model === null || model === undefined) && !settings.handleUndefinedModel ) {
                                     $log.debug('itemTemplate directive templateModel is null, template, if any, will be destroyed.');
                                     $linkElement.empty();
                                 } else {
-
-                                    $scope.templateModel = model;
 
                                     var templateUrl = selector(model, settings);
 
@@ -181,7 +177,7 @@
                                         }
 
                                         var firstChild = $linkElement.children(0);
-                                        var compiledElement = $compile($linkElement.html())($scope);
+                                        var compiledElement = $compile($linkElement.html())(scope);
 
                                         firstChild.replaceWith(compiledElement);
                                     };
@@ -196,8 +192,7 @@
                                             $log.error('template loading error: ', data, status, headers);
                                             composer(config.defaultSettings.defaultLoadingErrorTemplate);
                                         });
-                                }
-                            });
+                                }  
                         });
                     }
                 };
