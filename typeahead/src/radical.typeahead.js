@@ -99,7 +99,18 @@
                     $scope.hide = true;
                     $scope.focused = true;
 
-                    $scope.itemSelected({ item: item });
+                    var obj = {
+                        item: item,
+                        refineSearch: function (term) {
+                            $scope.term = term;
+                            searchHandler()
+                              .then(function(){
+                                $scope.focused = true;
+                              });
+                        }
+                    };
+
+                    $scope.itemSelected(obj);
                 };
 
                 this.selectNone = function () {
